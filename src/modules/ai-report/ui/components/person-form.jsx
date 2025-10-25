@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,7 +22,7 @@ import {
   PopoverContent,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -34,7 +35,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// ✅ Validation Schema
+// Import Anon Aadhaar components as per the documentation
+import { LogInWithAnonAadhaar, useAnonAadhaar } from "@anon-aadhaar/react";
+
+// ✅ Validation Schema (no changes needed)
 const personSchema = z.object({
   firstName: z.string().min(2, "First name required"),
   lastName: z.string().min(2, "Last name required"),
@@ -53,6 +57,10 @@ const personSchema = z.object({
 });
 
 export function PersonForm({ onSuccess, onCancel }) {
+  // Get the state of the Anon Aadhaar verification
+  const [anonAadhaar] = useAnonAadhaar();
+  const isVerified = anonAadhaar.status === "logged-in";
+
   const form = useForm({
     resolver: zodResolver(personSchema),
     defaultValues: {
@@ -70,8 +78,28 @@ export function PersonForm({ onSuccess, onCancel }) {
     },
   });
 
+  // Listen for changes in the verification status
+  useEffect(() => {
+    if (isVerified) {
+      toast.success("Proof of Residency Verified.", {
+        description: "You can now proceed with the form submission.",
+      });
+    }
+  }, [isVerified]);
+
   const onSubmit = (values) => {
-    console.log("Submitted:", values);
+    // Block form submission if Aadhaar is not verified
+    if (!isVerified) {
+      toast.error("Verification Required", {
+        description:
+          "Please verify your Aadhaar to prove residency before submitting.",
+      });
+      return;
+    }
+    console.log("Submitting with verified proof:", {
+      formData: values,
+      proof: anonAadhaar.proof, // This proof can be sent to your backend for final validation
+    });
     toast.success("Form submitted successfully!");
     onSuccess?.();
   };
@@ -82,6 +110,7 @@ export function PersonForm({ onSuccess, onCancel }) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
+        {/* All other form fields remain unchanged */}
         {/* First + Last Name */}
         <FormField
           name="firstName"
@@ -109,7 +138,6 @@ export function PersonForm({ onSuccess, onCancel }) {
             </FormItem>
           )}
         />
-
         {/* DOB + Gender */}
         <FormField
           name="dob"
@@ -150,7 +178,6 @@ export function PersonForm({ onSuccess, onCancel }) {
             </FormItem>
           )}
         />
-
         <FormField
           name="gender"
           control={form.control}
@@ -173,7 +200,6 @@ export function PersonForm({ onSuccess, onCancel }) {
             </FormItem>
           )}
         />
-
         {/* Phone + Email */}
         <FormField
           name="phone"
@@ -205,7 +231,6 @@ export function PersonForm({ onSuccess, onCancel }) {
             </FormItem>
           )}
         />
-
         {/* Contact Person + Phone */}
         <FormField
           name="contactPerson"
@@ -233,7 +258,6 @@ export function PersonForm({ onSuccess, onCancel }) {
             </FormItem>
           )}
         />
-
         {/* Address */}
         <FormField
           name="addressLine1"
@@ -262,34 +286,56 @@ export function PersonForm({ onSuccess, onCancel }) {
           )}
         />
 
-        {/* Aadhaar */}
-        <div className="md:col-span-2 flex gap-2 items-end">
-          <FormField
-            name="aadhar"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Aadhaar Number</FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    maxLength={12}
-                    placeholder="Enter 12-digit Aadhaar"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+        {/* START: MODIFIED AADHAAR VERIFICATION SECTION */}
+        <div className="md:col-span-2 p-4 border-2 border-dashed rounded-lg bg-slate-50/50">
+          <label className="font-semibold text-base">
+            Proof of Indian Residency
+          </label>
+          <p className="text-sm text-muted-foreground mb-4">
+            To proceed, please verify your identity using Aadhaar. This proves
+            your residency without sharing personal data.
+          </p>
+
+          <div className="w-full text-center">
+            {isVerified ? (
+              // STATE 1: User is Verified
+              <div className="flex flex-col items-center justify-center gap-2 p-4 text-green-700 bg-green-50 rounded-md">
+                <CheckCircle2 className="h-10 w-10" />
+                <span className="font-semibold text-lg">
+                  Verification Complete
+                </span>
+              </div>
+            ) : (
+              // STATE 2: User is Not Verified
+              <LogInWithAnonAadhaar
+                // The nullifierSeed must be a unique, non-guessable number for each user session.
+                // Using a static number is for demonstration only.
+                nullifierSeed={1234}
+              />
             )}
-          />
-          <Button
-            type="button"
-            className="mt-1"
-            onClick={() => toast.info("Aadhaar verification not connected yet")}
-          >
-            Verify
-          </Button>
+          </div>
         </div>
+        {/* END: MODIFIED AADHAAR VERIFICATION SECTION */}
+
+        {/* This field is now optional and separate from verification */}
+        <FormField
+          name="aadhar"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem className="md:col-span-2">
+              <FormLabel>Aadhaar Number (Optional, for records)</FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  maxLength={12}
+                  placeholder="12-digit number (if required for records)"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {/* Buttons */}
         <div className="md:col-span-2 flex justify-end gap-3 mt-4">

@@ -65,6 +65,17 @@ export default function ProgressUpload({
 
   const [uploadFiles, setUploadFiles] = useState(defaultUploadFiles);
 
+  // Notify parent about the initial/default files on mount so callers
+  // (like forms) receive the existing files array and won't treat it as empty.
+  // This ensures components that rely on an initial file list (e.g. demo/default
+  // preview images) are aware of them.
+  useEffect(() => {
+    onFilesChange?.(uploadFiles.map(({ id, file, preview }) => ({ id, file, preview })));
+    // Intentionally only run on mount. The uploadFiles state will be reported
+    // to the parent when users add/remove files via the useFileUpload callbacks.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [
     { isDragging, errors },
     {

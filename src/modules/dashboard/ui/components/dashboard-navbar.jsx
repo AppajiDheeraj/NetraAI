@@ -29,7 +29,7 @@ export const DashboardNav = () => {
                         : <PanelLeftCloseIcon className="size-4" />}
                 </Button>
                 <Button
-                    className="h-9 w-[60] justify-start font-normal hover:text-muted-foreground"
+                    className="h-9 w-[15rem] justify-start font-normal hover:text-muted-foreground"
                     variant={"outline"}
                     size="sm"
                     onClick={() => {
