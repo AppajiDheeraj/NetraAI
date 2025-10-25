@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+torch
+torchvision
+captum
+numpy
+Pillow
+matplotlib
+pydantic
+python-multipart
+requests
+google-generativeai
