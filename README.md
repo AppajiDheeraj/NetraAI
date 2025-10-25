@@ -31,7 +31,6 @@ NetraAI is an advanced AI-based ophthalmic reporting system designed for clinics
 
 ## 🏗️ Architecture
 
-<img width="800" alt="architecture" src="https://github.com/user-attachments/assets/f368e47f-8d74-46e9-b8e5-a31e1bde5d7a" />
 
 ### Core Modules
 
@@ -253,13 +252,12 @@ C --> F[Clinic Records]
 * **Next.js** for powerful full-stack development
 * **TailwindCSS** for seamless styling
 * **Framer Motion** for animations
-* **OpenCV / Vision API** for AI insights
 
 ---
 
 <div align="center">
 
 **👁️ Making Eye Diagnostics Smarter, Faster, and More Accessible**
-Built with ❤️ by Dheeraj Aji for AI Innovation Hackathon 2025
+Built with ❤️ by Dheeraj, Vivin and Kshama for Build for Builders Hackathon 2025
 
 </div>
