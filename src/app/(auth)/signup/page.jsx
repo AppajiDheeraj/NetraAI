@@ -1,5 +1,4 @@
 // app/signup/page.jsx
-
 import { GalleryVerticalEnd } from "lucide-react";
 import { SignUpForm } from "@/components/signup-form"; // Import the JSX form
 
