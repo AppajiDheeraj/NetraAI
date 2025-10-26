@@ -1,183 +1,197 @@
-# 👁️ NetraAI - Intelligent Eye Report Generation Platform
+# 👁️ NetraAI — Intelligent Eye Report Generation Platform
 
 <div align="center">
 
-[Demo Link](#)
+[Live Demo](#) • [Project Video](https://www.loom.com/share/your-video-link) • [Slides](https://your-presentation-link)
 
-**AI-Powered Ophthalmic Diagnostics and Report Automation**
+**AI-Powered Ophthalmic Diagnostics and Automated Report Generation**
 
-[![Built with](https://img.shields.io/badge/Built%20with-Next.js%20+%20React-blue)](https://nextjs.org/)
+[![Built with](https://img.shields.io/badge/Built%20with-Next.js%20%2B%20React-blue)](https://nextjs.org/)
 [![AI Model](https://img.shields.io/badge/AI-Computer%20Vision-green)](#)
-[![Storage](https://img.shields.io/badge/Storage-Supabase%20+%20Cloud%20Storage-orange)](https://supabase.com/)
+[![Storage](https://img.shields.io/badge/Storage-Supabase%20%2B%20Cloud%20Storage-orange)](https://supabase.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 </div>
 
-## 🚀 Overview
+---
+## 🧠 Problem Statement
 
-NetraAI is an advanced AI-based ophthalmic reporting system designed for clinics and diagnostic centers. It enables doctors to generate AI-analyzed eye health reports using uploaded retinal or eye images. With features like clinic verification, patient data management, and automated report creation, NetraAI brings efficiency and accuracy to modern eye diagnostics.
+Retinal diseases like glaucoma, diabetic retinopathy, and macular degeneration are often impossible to detect early, even by experienced ophthalmologists.
+Subtle retinal layer changes — invisible to the naked eye — are only captured through OCT (Optical Coherence Tomography) scans. Yet, interpreting OCT data is complex, time-consuming, and prone to human variability.
 
-### 🌟 Key Features
+Millions lose their vision not because treatment doesn’t exist, but because signs were missed early.
+Additionally, inconsistent diagnostic standards and scattered OCT data lead to poor data integrity and hinder long-term patient tracking.
 
-* **👁️ AI-Powered Eye Analysis**: Upload eye images and get automated AI-generated feed maps and health insights.
-* **🏥 Clinic Verification System**: Secure clinic validation via license or QR verification.
-* **📄 AI Report Generation**: Doctor-tagged, patient-linked reports generated seamlessly.
-* **📤 Image Upload Pipeline**: Real-time progress tracking with validation and compression.
-* **📊 Dashboard Overview**: Manage reports, patients, and upload analytics in one place.
-* **🔐 Auth System**: Secure login/signup for verified clinic access.
-* **💬 Responsive UI/UX**: Built with reusable and animated UI components.
+## 💡 Our Vision
+
+We envision a world where no one goes blind because of late detection — regardless of where they live or how much they earn.
+Our mission is to democratize precision eye diagnostics using accessible AI tools that assist doctors, empower clinics, and make retinal screening part of every basic eye check-up.
+
+## 🔬 The Solution
+
+NetraAI is an AI-powered retinal disease detection platform that identifies invisible, early-stage eye disorders using standard fundus images — no expensive OCT required.
+
+How It Works:
+- Clinics Register → Verified clinics sign up on the platform.
+- Upload Retinal Images → Health workers capture fundus images using low-cost fundus cameras or smartphones with adapters.
+- AI Diagnosis → Our proprietary model analyzes retinal images and detects early signs of diseases like diabetic retinopathy or glaucoma — often before visible symptoms appear.
+- Doctor Assist Dashboard → Doctors receive structured reports, highlighting risk zones, confidence levels, and AI recommendations — designed to assist, not replace clinical judgment.
+- Patient Insights → Patients get a simplified report with next-step guidance (visit specialist, follow-up, etc.).
 
 ---
+
 
 ## 🏗️ Architecture
 
-
-### Core Modules
-
-* **Frontend (Next.js)**: Dynamic routing and rendering for dashboard and forms.
-* **AI Pipeline (Report Generator)**: Handles uploaded images and runs AI inference for visual diagnostics.
-* **API Routes (Next.js)**: Serverless endpoints for clinic verification and AI report management.
-* **Database (Supabase)**: Stores clinic, patient, and report metadata.
+![Architecture Diagram](/assets/isoflow-export-2025-10-25T23_50_11.166Z.png)
 
 ---
 
-## 🧱 Technology Stack
+## 🌍 Dual-Model Approach: Impact + Sustainability
 
-### ⚙️ Frameworks & Libraries
+We operate on a hybrid CSR-driven model:
 
-* **Next.js 14 (App Router)**: Modern SSR/ISR frontend framework.
-* **React 18**: Component-driven architecture.
-* **Tailwind CSS**: Utility-first styling.
-* **Framer Motion**: Smooth UI animations.
+1.  Rural & Semi-Urban Clinics
+- Partner with government/CSR-backed hospitals and NGOs.
+- Free screening for patients holding ESI cards or verified under economically unstable categories.
+- AI-assisted reports and awareness sessions for early intervention.
+Verified access ensures services are limited to eligible individuals.
+2.  Urban Subscription Model
+- Clinics and hospitals subscribe to VisionSight D++ — a premium AI diagnostic assistant.
+- Offers faster reports, patient management dashboards, and deeper analytics.
+- Revenue from this model fuels free screening initiatives in rural sectors.
+
+---
+
+### ✨ What Makes It Stand Out
+
+* **👁️ AI-Powered Diagnostics** — Upload an eye image and get automated AI insights with visual heatmaps.
+* **🏥 Clinic Verification System** — Clinics get verified using license or QR-based authentication.
+* **📄 Automated Report Generation** — Doctors can link reports to patient profiles and export them seamlessly.
+* **📊 Interactive Dashboard** — Manage patients, reports, uploads, and AI metrics in one clean interface.
+* **🔐 Secure Auth System** — Only verified clinics can access and generate reports.
+* **💫 Modern, Responsive UI** — Sleek design with smooth animations and modular components.
+
+---
+
+### 🔍 Core Components
+
+| Module                   | Description                                                             |
+| ------------------------ | ----------------------------------------------------------------------- |
+| **Frontend (Next.js)**   | Handles routing, dashboards, and dynamic rendering.                     |
+| **AI Pipeline**          | Analyzes images, generates diagnostic overlays, and interprets results. |
+| **API Routes (Next.js)** | Serverless endpoints for verification, AI reports, and data handling.   |
+| **Database (Supabase)**  | Stores clinic, patient, and report metadata securely.                   |
+
+---
+
+## ⚙️ Tech Stack
+
+### 🧩 Frameworks & Libraries
+
+* **Next.js 14 (App Router)** — Modern SSR/ISR frontend architecture.
+* **React 18** — Component-based UI development.
+* **Tailwind CSS** — Utility-first styling framework.
+* **Framer Motion** — Smooth, fluid animations.
 
 ### 🤖 AI & Logic
 
-* **Custom Vision Model**: Image-based AI analysis for eye reports.
-* **Helper Scripts**: Utility functions for formatting and AI inference pipelines.
+* **Custom Computer Vision Model** — Detects eye-related features and abnormalities.
+* **AI Inference Scripts** — Python-based inference pipeline integrated via API.
 
-### 🗄️ Storage & Database
+### ☁️ Storage & Backend
 
-* **Supabase**: Authentication, storage, and database backend.
-* **Cloud Storage**: Image storage and retrieval pipeline.
+* **Supabase** — Handles authentication, database, and object storage.
+* **Cloud Storage** — Manages high-resolution image uploads and retrieval.
 
-### 🧩 Utilities & Tools
+### 🧠 Utilities
 
-* **ESLint**: Code linting.
-* **PostCSS**: Tailwind optimization.
-* **Zustand**: Lightweight state management.
+* **Zustand** — Lightweight state management.
+* **ESLint & PostCSS** — Linting and CSS optimization.
 
 ---
 
-## 📁 Directory Structure
+## 🗂️ Folder Structure
 
 ```bash
-appajidheeraj-netraai/
+netraai/
 ├── README.md
-├── components.json
-├── eslint.config.mjs
-├── jsconfig.json
-├── next.config.mjs
 ├── package.json
-├── postcss.config.mjs
+├── next.config.mjs
 └── src/
     ├── app/
-    │   ├── globals.css
-    │   ├── layout.js
-    │   ├── page.js
-    │   ├── (auth)/
-    │   │   ├── login/page.jsx
-    │   │   └── signup/page.jsx
-    │   ├── (dashboard)/
-    │   │   ├── layout.jsx
-    │   │   ├── page.jsx
-    │   │   └── ai-report/page.jsx
-    │   └── api/verify-clinic/route.js
+    │   ├── (auth)/login, signup
+    │   ├── (dashboard)/layout, ai-report
+    │   ├── api/verify-clinic/route.js
+    │   └── globals.css
     ├── components/
-    │   ├── core UI components (buttons, dialogs, forms)
-    │   ├── login/signup forms
-    │   └── theme and responsive utilities
-    ├── hooks/
-    │   ├── use-file-upload.js
-    │   └── use-mobile.js
-    ├── lib/
-    │   ├── helpers.js
-    │   ├── utils.js
-    │   └── verified-clinics.js
+    │   ├── core/ (buttons, forms, modals)
+    │   └── ui/ (dashboard, dialogs)
+    ├── hooks/ (custom React hooks)
+    ├── lib/ (helpers, utils, constants)
     └── modules/
         ├── ai-report/
-        │   └── ui/components/
-        │       ├── ai-report-form.jsx
-        │       ├── new-ai-report-dialog.jsx
-        │       ├── new-person-dialog.jsx
-        │       └── person-form.jsx
         └── dashboard/
-            └── ui/components/
-                ├── dashboard-command.jsx
-                ├── dashboard-navbar.jsx
-                ├── dashboard-sidebar.jsx
-                └── dashboard-user-button.jsx
 ```
 
 ---
 
-## ⚡ Quick Start
+## ⚡ Getting Started
 
-### Prerequisites
+### 1️⃣ Prerequisites
 
 * Node.js 18+
 * npm or yarn
-* Supabase project (for DB + Auth)
+* Supabase project setup
 
-### Installation
+### 2️⃣ Installation
 
 ```bash
-git clone https://github.com/ajidheeraj/appajidheeraj-netraai.git
-cd appajidheeraj-netraai
+git clone https://github.com/appajidheeraj/netraai.git
+cd netraai
 npm install
 ```
 
-### Setup Environment
+### 3️⃣ Environment Variables
 
 Create a `.env.local` file:
 
-```env
+```bash
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-AI_MODEL_ENDPOINT=your_ai_inference_api
+AI_MODEL_ENDPOINT=your_model_endpoint
 ```
 
-### Run Development Server
+### 4️⃣ Run Development Server
 
 ```bash
 npm run dev
 ```
 
-Visit: `http://localhost:3000`
+Visit `http://localhost:3000`
 
 ---
 
 ## 🧬 Core Workflows
 
-### 1. 🏥 Clinic Verification Flow
+### 🏥 Clinic Verification
 
 ```mermaid
 sequenceDiagram
     participant C as Clinic
     participant A as App
-    participant API as Verification API
-
-    C->>A: Upload License/QR
-    A->>API: Decode and verify license
-    API-->>A: Verification result
-    A-->>C: Verified Access Granted
+    participant API as Verification Service
+    C->>A: Upload License / QR
+    A->>API: Validate License Data
+    API-->>A: Verified / Rejected
+    A-->>C: Access Granted / Denied
 ```
 
-**Highlights:**
+**Purpose:** Ensures only licensed clinics can generate patient reports.
 
-* License/QR verification before report generation.
-* Verification cached via Supabase DB.
+---
 
-### 2. 👁️ AI Report Flow
+### 👁️ AI Report Generation
 
 ```mermaid
 sequenceDiagram
@@ -186,78 +200,73 @@ sequenceDiagram
     participant AI as Model API
     participant DB as Supabase
 
-    D->>A: Upload Eye Image + Patient Data
-    A->>AI: Send image for processing
-    AI-->>A: Return feedmap + report
-    A->>DB: Store report and metadata
-    A-->>D: Show AI-generated report
+    D->>A: Upload Eye Image + Patient Details
+    A->>AI: Send Image for Analysis
+    AI-->>A: Return Feed Map + Health Insights
+    A->>DB: Store Report Metadata
+    A-->>D: Display AI-Generated Report
 ```
 
-**Features:**
+**Outcome:** Doctors receive AI-analyzed reports with feedmaps and predictions.
 
-* Upload retina or cornea images.
-* Generates diagnostic feed maps and health metrics.
-* Stores AI and doctor details together.
+---
 
-### 3. 📊 Dashboard Workflow
+### 📊 Dashboard Flow
 
 ```mermaid
 graph TD
 A[Dashboard] --> B[AI Reports]
 A --> C[Patients]
-A --> D[Upload Statistics]
-B --> E[Report Generation]
-C --> F[Clinic Records]
+A --> D[Upload Stats]
+B --> E[Generate Reports]
+C --> F[View Patient Data]
 ```
 
-**Dashboard Modules:**
+**Includes:**
 
-* Patient list
-* Report history
-* Upload tracking
-* AI performance metrics
+* Report History
+* Patient Records
+* Upload Analytics
+* Clinic Profile
 
 ---
 
-## 💻 UI Overview
+## 🎨 UI Walkthrough
 
-* **Login/Signup Pages**: Authentication and onboarding.
-* **Dashboard Page**: Report overview and access.
-* **AI Report Page**: Form to upload patient details and generate reports.
-* **Components Library**: Modular, reusable UI elements from `/components/ui/`.
+* **Login / Signup** — Secure authentication for clinics.
+* **Dashboard** — Access reports, patients, and insights.
+* **AI Report Page** — Upload, analyze, and generate reports.
+* **Dialog Components** — Patient and report input modals.
 
 ---
 
 ## 🔒 Security & Privacy
 
-* **Clinic Verification** ensures trusted data sources.
-* **Encrypted Uploads** for sensitive image data.
-* **Supabase Auth** for session and data protection.
-* **Client-Side AI Calls** with anonymized patient info.
+* ✅ **Verified Access Only** — Clinics are validated before access.
+* 🔐 **Encrypted Uploads** — Sensitive patient images are secured.
+* 🧾 **Supabase Auth** — Robust session and access management.
+* 🧠 **Anonymized Data** — Patient data used in AI inference remains private.
 
 ---
 
-## 📜 Future Enhancements
+## 🧭 Future Roadmap
 
-* Integration with blockchain for immutable report proof.
-* Doctor–patient decentralized record access.
-* AI model fine-tuning using anonymized datasets.
-* Automated PDF report export.
+* 📜 PDF Report Export
+* 🔗 Blockchain-based Record Verification
+* ⚕️ Fine-tuned AI Models with Real Data
+* 🌐 Multi-Language Support
 
 ---
 
-## 🙌 Acknowledgments
+## 💡 Inspiration
 
-* **Supabase** for backend infrastructure
-* **Next.js** for powerful full-stack development
-* **TailwindCSS** for seamless styling
-* **Framer Motion** for animations
+> *We wanted to bridge the gap between AI innovation and accessible healthcare — empowering clinics to diagnose faster and smarter.*
 
 ---
 
 <div align="center">
 
-**👁️ Making Eye Diagnostics Smarter, Faster, and More Accessible**
-Built with ❤️ by Dheeraj, Vivin and Kshama for Build for Builders Hackathon 2025
+**👁️ NetraAI — Making Eye Diagnostics Smarter, Faster, and More Accessible**
+Built with ❤️ by *Dheeraj, Vivin, and Kshama* for **Build for Builders Hackathon 2025**
 
 </div>
