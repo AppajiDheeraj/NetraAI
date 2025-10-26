@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+/* Ensure forms are scrollable */
 export const ResponsiveDialog = ({
   title,
   description,
@@ -33,7 +34,9 @@ export const ResponsiveDialog = ({
             <DrawerTitle>{title}</DrawerTitle>
             <DrawerDescription>{description}</DrawerDescription>
           </DrawerHeader>
-          <div className="p-4">{children}</div>
+          <div className="p-4 overflow-y-auto max-h-[80vh] scrollbar-hidden">
+            {children}
+          </div>
         </DrawerContent>
       </Drawer>
     );
@@ -41,7 +44,7 @@ export const ResponsiveDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl overflow-y-auto max-h-[80vh] scrollbar-hidden">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>

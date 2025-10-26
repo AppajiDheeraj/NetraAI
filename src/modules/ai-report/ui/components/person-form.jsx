@@ -110,8 +110,6 @@ export function PersonForm({ onSuccess, onCancel }) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
-        {/* All other form fields remain unchanged */}
-        {/* First + Last Name */}
         <FormField
           name="firstName"
           control={form.control}
@@ -138,7 +136,6 @@ export function PersonForm({ onSuccess, onCancel }) {
             </FormItem>
           )}
         />
-        {/* DOB + Gender */}
         <FormField
           name="dob"
           control={form.control}
@@ -200,7 +197,6 @@ export function PersonForm({ onSuccess, onCancel }) {
             </FormItem>
           )}
         />
-        {/* Phone + Email */}
         <FormField
           name="phone"
           control={form.control}
@@ -231,7 +227,6 @@ export function PersonForm({ onSuccess, onCancel }) {
             </FormItem>
           )}
         />
-        {/* Contact Person + Phone */}
         <FormField
           name="contactPerson"
           control={form.control}
@@ -258,7 +253,6 @@ export function PersonForm({ onSuccess, onCancel }) {
             </FormItem>
           )}
         />
-        {/* Address */}
         <FormField
           name="addressLine1"
           control={form.control}
@@ -316,26 +310,6 @@ export function PersonForm({ onSuccess, onCancel }) {
           </div>
         </div>
         {/* END: MODIFIED AADHAAR VERIFICATION SECTION */}
-
-        {/* This field is now optional and separate from verification */}
-        <FormField
-          name="aadhar"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem className="md:col-span-2">
-              <FormLabel>Aadhaar Number (Optional, for records)</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  maxLength={12}
-                  placeholder="12-digit number (if required for records)"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
 
         {/* Buttons */}
         <div className="md:col-span-2 flex justify-end gap-3 mt-4">

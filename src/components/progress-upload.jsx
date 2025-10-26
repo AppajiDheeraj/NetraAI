@@ -200,7 +200,7 @@ export default function ProgressUpload({
       <div
         className={cn(
           'relative rounded-lg border border-dashed p-8 text-center transition-colors',
-          isDragging ? 'border-primary bg-primary/5' : 'border-muted-foreground/25 hover:border-muted-foreground/50'
+          isDragging ? 'border-primary bg-primary/5' : 'border-muted-foreground/25 hover:border-primary'
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}

@@ -66,27 +66,27 @@ export function SignUpForm({ className, ...props }) {
   const isVerifying = verificationStatus === "verifying";
 
   return (
-    // ✅ Pass the new submit handler to the form
+    // Improved layout: constrained width, centered, single-column for predictable rendering
     <form
       onSubmit={handleFormSubmit}
-      className={cn("flex flex-col gap-6", className)}
+      className={cn("w-full max-w-3xl mx-auto p-6", className)}
       {...props}
     >
       <FieldGroup>
-        <div className="flex flex-col items-center gap-1 text-center">
+        <div className="flex flex-col items-start gap-1 text-left">
           <h1 className="text-2xl font-bold">Create a Clinic Account</h1>
-          <p className="text-muted-foreground text-sm text-balance">
-            First, verify your clinic's license key to get started.
+          <p className="text-muted-foreground text-sm">
+            First, verify your clinic's license key to get started. All fields are visible below — verification enables the inputs.
           </p>
         </div>
 
-        {/* ✅ 4. The interactive License Key / HFR ID field */}
-        <Field>
+        <Field className="w-full">
           <FieldLabel htmlFor="License">License Key (HFR ID)</FieldLabel>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap w-full">
             <Input
               id="License"
               name="hfrId"
+              className="flex-1 min-w-0"
               placeholder="Enter your clinic's HFR ID"
               value={hfrId}
               onChange={(e) => {
@@ -97,50 +97,67 @@ export function SignUpForm({ className, ...props }) {
                   setVerifiedClinicName('');
                 }
               }}
-              // Disable input once verified
+              // readOnly once verified
               readOnly={isVerified}
+              aria-describedby="verification-help"
             />
+
             <Button
               type="button"
               variant="outline"
               onClick={handleVerifyLicense}
-              // Disable button while verifying or if already verified
               disabled={isVerifying || isVerified}
             >
               {isVerifying && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {isVerified ? "Verified" : "Verify"}
             </Button>
           </div>
-          {/* Show a success message after verification */}
-          {isVerified && (
-             <div className="flex items-center gap-2 text-sm text-green-600 mt-2">
+
+          <div id="verification-help" role="status" aria-live="polite">
+            {isVerified ? (
+              <div className="flex items-center gap-2 text-sm text-green-600 mt-2">
                 <CheckCircle2 className="h-4 w-4" />
                 <span>Successfully verified: <strong>{verifiedClinicName}</strong></span>
-            </div>
-          )}
+              </div>
+            ) : isVerifying ? (
+              <p className="text-sm text-muted-foreground mt-2">Verifying license...</p>
+            ) : (
+              <p className="text-sm text-muted-foreground mt-2">Enter your clinic HFR ID and click Verify to enable account creation.</p>
+            )}
+          </div>
         </Field>
 
-        {/* Show other fields only AFTER verification is successful */}
-        {isVerified && (
-          <>
-            <Field>
-              <FieldLabel htmlFor="name">Your Name</FieldLabel>
-              <Input id="name" name="name" placeholder="Enter your full name" required />
-            </Field>
+        {/* Always show the rest of the fields so nothing is cut or hidden; disable them until verification completes */}
+        <Field className="w-full">
+          <FieldLabel htmlFor="name">Your Name</FieldLabel>
+          <Input
+            id="name"
+            name="name"
+            placeholder="Enter your full name"
+            required={isVerified}
+            disabled={!isVerified}
+          />
+        </Field>
 
-            <Field>
-              <FieldLabel htmlFor="password">Create Password</FieldLabel>
-              <Input id="password" name="password" type="password" required />
-            </Field>
+        <Field className="w-full">
+          <FieldLabel htmlFor="password">Create Password</FieldLabel>
+          <Input
+            id="password"
+            name="password"
+            type="password"
+            required={isVerified}
+            disabled={!isVerified}
+          />
+        </Field>
 
-            <Field>
-              {/* ✅ Disable the main button until the key is verified */}
-              <Button type="submit" className="w-full">
-                Create Account
-              </Button>
-            </Field>
-          </>
-        )}
+        <Field className="w-full">
+          <Button type="submit" className="w-full" disabled={!isVerified}>
+            {isVerified ? "Create Account" : "Create Account (Verify first)"}
+          </Button>
+          {!isVerified && (
+            <p className="text-sm text-muted-foreground mt-2">Please verify your clinic's license to enable account creation.</p>
+          )}
+        </Field>
 
         <FieldSeparator />
 

@@ -5,7 +5,7 @@ import {
     Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenuItem, SidebarMenu, SidebarMenuButton
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { BotIcon, SettingsIcon, StarIcon, VideoIcon } from "lucide-react";
+import { Eye, Users, FileText, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,19 +13,22 @@ import { DashboardUserButton } from "./dashboard-user-button";
 
 const firstSection = [
     {
-        icon: VideoIcon,
+        // Eye symbolizes image / vision reports
+        icon: Eye,
         label: "AI Reports",
         href: "/ai-report"
     },
     {
-        icon: BotIcon,
+        // Users for past reports / patients
+        icon: Users,
         label: "Past Reports",
         href: "/past-reports"
     },
     {
-        icon: SettingsIcon,
-        label: "Settings",
-        href: "/settings"
+        // FileText for generic reports/listing (kept as relevant symbol)
+        icon: FileText,
+        label: "Records",
+        href: "/records"
     }
 ]
 
@@ -43,8 +46,9 @@ export const DashboardSidebar = () => {
         <Sidebar>
             <SidebarHeader className="text-sidebar-accent-foreground ">
                 <Link href={"/"} className="flex items-center gap-2 px-2 pt-2">
-                    <Image src={"/logo.svg"} height={36} width={36} alt="Meet.AI" />
-                    <p className="text-2xl font-semibold">Netra AI</p>
+                    {/* subtle eye icon to emphasize vision/AI brand */}
+                    <Eye className="size-5 text-primary/90" />
+                    <p className="text-2xl font-semibold text-white">Netra AI</p>
                 </Link>
             </SidebarHeader>
             <div className="px-4 py-2">
@@ -56,14 +60,17 @@ export const DashboardSidebar = () => {
                         <SidebarMenu>
                             {firstSection.map((item) => (
                                 <SidebarMenuItem key={item.href}>
-                                    <SidebarMenuButton asChild className={cn("h-10 hover:bg-linear-to-r/oklch border border-transparent hover:border-[#5DD868]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
-                                        pathname === item.href && "bg-linear-to-r/oklch border-[#5D6B68]/10"
+                                    <SidebarMenuButton asChild className={cn(
+                                        // keep fixed height and add gap for icon + label
+                                        // hover now uses a subtle solid tint; active uses a solid primary tint
+                                        "h-10 hover:bg-primary/10 border border-transparent px-2",
+                                        pathname === item.href && "bg-primary/20 border-primary/40"
                                     )}
                                         isActive={pathname === item.href}
                                     >
                                         <Link href={item.href}>
-                                            <item.icon size={"6"} />
-                                            <span className="text-sm font-medium tracking-tight">
+                                            <item.icon className={cn("size-5 mr-3", pathname === item.href ? "text-black" : "text-sidebar-foreground/80")} />
+                                            <span className={cn("text-sm font-medium tracking-tight", pathname === item.href ? "text-black" : "text-sidebar-foreground/95")}>
                                                 {item.label}
                                             </span>
                                         </Link>
@@ -81,14 +88,15 @@ export const DashboardSidebar = () => {
                         <SidebarMenu>
                             {secondSection.map((item) => (
                                 <SidebarMenuItem key={item.href}>
-                                    <SidebarMenuButton asChild className={cn("h-10 hover:bg-linear-to-r/oklch border border-transparent hover:border-[#5DD868]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
-                                        pathname === item.href && "bg-linear-to-r/oklch border-[#5D6B68]/10"
+                                    <SidebarMenuButton asChild className={cn(
+                                        "h-10 hover:bg-primary/10 border border-transparent px-2",
+                                        pathname === item.href && "bg-primary/20 border-primary/40 text-black"
                                     )}
                                         isActive={pathname === item.href}
                                     >
                                         <Link href={item.href}>
-                                            <item.icon size={"6"} />
-                                            <span className="text-sm font-medium tracking-tight">
+                                            <item.icon className={cn("size-5 mr-3", pathname === item.href ? "text-black" : "text-sidebar-foreground/80")} />
+                                            <span className={cn("text-sm font-medium tracking-tight", pathname === item.href ? "text-black" : "text-sidebar-foreground/95")}>
                                                 {item.label}
                                             </span>
                                         </Link>

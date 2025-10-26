@@ -64,11 +64,17 @@ export function AiReportForm({ onCancel, onSuccess, onCreatePerson }) {
     onSuccess?.();
   };
 
-  // Example dropdown lists
-  const doctors = Array.from(
-    { length: 15 },
-    (_, i) => `Dr. Rahul Mehta ${i + 1}`
-  );
+  // Example dropdown lists — use a small curated list of doctors for clarity
+  const doctors = [
+    "Dr. Rahul Mehta",
+    "Dr. Ananya Rao",
+    "Dr. Vikram Singh",
+    "Dr. Priya Sharma",
+    "Dr. Nikhil Kapoor",
+    "Dr. Sangeeta Iyer",
+    "Dr. Arjun Patel",
+  ];
+
   const patients = Array.from({ length: 20 }, (_, i) => `Patient ${i + 1}`);
 
   return (
@@ -95,6 +101,20 @@ export function AiReportForm({ onCancel, onSuccess, onCreatePerson }) {
         )}
         className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
+          {/* Report Title (full width) */}
+          <FormField
+            name="reportTitle"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className="md:col-span-2">
+                <FormLabel>Report Title</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter a short title for the report (optional)" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         {/* Doctor */}
         <FormField
           name="doctor"

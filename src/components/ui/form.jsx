@@ -47,30 +47,40 @@ const useFormField = () => {
 
 const FormItemContext = React.createContext({})
 
+/* Update form component to use transparent background */
 function FormItem({
   className,
   ...props
 }) {
-  const id = React.useId()
+  const id = React.useId();
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div data-slot="form-item" className={cn("grid gap-2", className)} {...props} />
+      <div
+        data-slot="form-item"
+        className={cn(
+          // Use tighter vertical spacing and no internal padding so inputs align neatly in grid
+          "grid gap-2 items-start bg-transparent rounded-md w-full min-w-0",
+          className
+        )}
+        {...props}
+      />
     </FormItemContext.Provider>
   );
 }
 
+/* Fix form label alignment and remove color patches */
 function FormLabel({
   className,
   ...props
 }) {
-  const { error, formItemId } = useFormField()
+  const { error, formItemId } = useFormField();
 
   return (
     <Label
       data-slot="form-label"
       data-error={!!error}
-      className={cn("data-[error=true]:text-destructive", className)}
+      className={cn("text-sm font-medium text-muted-foreground", className)}
       htmlFor={formItemId}
       {...props} />
   );
@@ -79,7 +89,7 @@ function FormLabel({
 function FormControl({
   ...props
 }) {
-  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+  const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
 
   return (
     <Slot
@@ -91,6 +101,8 @@ function FormControl({
           : `${formDescriptionId} ${formMessageId}`
       }
       aria-invalid={!!error}
+      // Keep the control wrapper minimal — inputs and triggers supply padding/border themselves
+      className="w-full min-w-0"
       {...props} />
   );
 }
